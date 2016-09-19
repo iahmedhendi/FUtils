@@ -6,4 +6,5 @@ package com.fourhcode.forhutils;
 public class FUtilsValidation {
 
     //Hello World!
+
 }
