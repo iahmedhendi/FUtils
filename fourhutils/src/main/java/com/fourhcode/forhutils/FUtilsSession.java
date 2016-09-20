@@ -15,7 +15,7 @@ public class FUtilsSession {
     private SharedPreferences.Editor editor;
 
 
-    private String PREF_NAME = "";
+    private String PREF_NAME = context.getPackageName() + "FUtilsSession";
     private static final String IS_LOGIN = "IsLoggedIn";
     public static final String KEY_USER_NAME = "username";
     public static final String KEY_USER_FULL_NAME = "full_name";
@@ -27,9 +27,8 @@ public class FUtilsSession {
 
 
 
-    public void config(Context context, String sessionName) {
+    public void config(Context context) {
         this.context = context;
-        this.PREF_NAME = sessionName;
     }
 
     public FUtilsSession() {
