@@ -3,10 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FUtils.iml" filepath="$PROJECT_DIR$/FUtils.iml" />
-      <module fileurl="file://$PROJECT_DIR$/FUtils.iml" filepath="$PROJECT_DIR$/FUtils.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/fourhutils/fourhutils.iml" filepath="$PROJECT_DIR$/fourhutils/fourhutils.iml" />
       <module fileurl="file://$PROJECT_DIR$/fourhutils/fourhutils.iml" filepath="$PROJECT_DIR$/fourhutils/fourhutils.iml" />
     </modules>
   </component>
