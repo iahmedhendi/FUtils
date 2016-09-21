@@ -3,6 +3,7 @@ package com.fourhcode.forhutils;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 /**
  * Created by Muhammad on 20/09/2016.
@@ -15,25 +16,33 @@ public class FUtilsSession {
     private SharedPreferences.Editor editor;
 
 
-    private String PREF_NAME = context.getPackageName() + "FUtilsSession";
+    private static String PREF_NAME;
     private static final String IS_LOGIN = "IsLoggedIn";
-    public static final String KEY_USER_NAME = "username";
-    public static final String KEY_USER_FULL_NAME = "full_name";
-    public static final String KEY_USER_EMAIL = "email";
-    public static final String KEY_USER_ID = "user_id";
-    public static final String KEY_USER_LANGUAGE = "user_language";
-    public static final String KEY_ACCESS_TOKEN = "access_token";
-    public static final String KEY_FCM_TOKEN = "fcm_token";
+    private static final String KEY_USER_NAME = "username";
+    private static final String KEY_USER_FULL_NAME = "full_name";
+    private static final String KEY_USER_EMAIL = "email";
+    private static final String KEY_USER_ID = "user_id";
+    private static final String KEY_USER_LANGUAGE = "user_language";
+    private static final String KEY_ACCESS_TOKEN = "access_token";
+    private static final String KEY_FCM_TOKEN = "fcm_token";
 
 
-
-    public void config(Context context) {
+    public FUtilsSession config(Context context) {
         this.context = context;
+        PREF_NAME = context.getPackageName() + "FUtilsSession";
+        sharedPreferences = context.getSharedPreferences(PREF_NAME, 0);
+        editor = sharedPreferences.edit();
+        return this;
     }
 
     public FUtilsSession() {
-        sharedPreferences = context.getSharedPreferences(PREF_NAME, 0);
-        editor = sharedPreferences.edit();
+        if (context != null) {
+            PREF_NAME = context.getPackageName() + "FUtilsSession";
+            sharedPreferences = context.getSharedPreferences(PREF_NAME, 0);
+            editor = sharedPreferences.edit();
+        } else {
+            Log.e("Context : ", "context == null");
+        }
     }
 
     public static FUtilsSession getInstance() {
