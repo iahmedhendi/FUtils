@@ -130,6 +130,7 @@ public class FUtilsSession {
 
 
     private void localLoginUser(int userId, String username, String email) {
+        checkConfig();
         editor.putBoolean(IS_LOGIN, true);
         editor.putString(KEY_USER_NAME, username);
         editor.putString(KEY_USER_EMAIL, email);
@@ -139,71 +140,88 @@ public class FUtilsSession {
 
 
     private void localSetUserName(String username) {
+        checkConfig();
         editor.putString(KEY_USER_NAME, username).apply();
     }
 
     private void localSetUserEmail(String userEmail) {
+        checkConfig();
         editor.putString(KEY_USER_EMAIL, userEmail).apply();
     }
 
     private void localSetUserFullName(String fullName) {
+        checkConfig();
         editor.putString(KEY_USER_FULL_NAME, fullName).apply();
     }
 
     private void localSetUserID(int userId) {
+        checkConfig();
         editor.putInt(KEY_USER_ID, userId).apply();
     }
 
     private void localSetUserLanguage(String language) {
+        checkConfig();
         editor.putString(KEY_USER_LANGUAGE, language).apply();
     }
 
     private void localSetAccessToken(String accessToken) {
+        checkConfig();
         editor.putString(KEY_ACCESS_TOKEN, accessToken).apply();
     }
 
     private void localSetFcmToken(String fcmToken) {
+        checkConfig();
         editor.putString(KEY_FCM_TOKEN, fcmToken).apply();
     }
 
     private void localSetUserLoginStatus(boolean loginStatus) {
+        checkConfig();
         editor.putBoolean(IS_LOGIN, loginStatus);
     }
 
     private String localGetUserName() {
+        checkConfig();
         return sharedPreferences.getString(KEY_USER_NAME, "");
     }
 
     private String localGetUserEmail() {
+        checkConfig();
         return sharedPreferences.getString(KEY_USER_EMAIL, "");
     }
 
     private String localGetUserFullName() {
+        checkConfig();
         return sharedPreferences.getString(KEY_USER_FULL_NAME, "");
     }
 
     private String localGetAccessToken() {
+        checkConfig();
         return sharedPreferences.getString(KEY_ACCESS_TOKEN, "");
     }
 
     private String localGetFcmToken() {
+        checkConfig();
         return sharedPreferences.getString(KEY_FCM_TOKEN, "");
     }
 
     private int localGetUserID() {
+        checkConfig();
         return sharedPreferences.getInt(KEY_USER_ID, 0);
     }
 
     private String localGetUserLanguage() {
+        checkConfig();
         return sharedPreferences.getString(KEY_USER_LANGUAGE, "");
     }
 
     private boolean localIsLogin() {
+        checkConfig();
         return sharedPreferences.getBoolean(IS_LOGIN, false);
     }
 
 
     public void localLogoutUserAndBackToLogin(Class<?> loginActivity) {
+        checkConfig();
         editor.clear().apply();
         Intent i = new Intent(context, loginActivity);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -212,8 +230,13 @@ public class FUtilsSession {
     }
 
     public void localLogoutUser() {
+        checkConfig();
         editor.clear().apply();
     }
 
-
+    private void checkConfig() {
+        if (context == null) {
+            throw new FutilsException("FUtilsSession didn't configured .. make sure to call FUtilsSession.config() in Application Class ");
+        }
+    }
 }

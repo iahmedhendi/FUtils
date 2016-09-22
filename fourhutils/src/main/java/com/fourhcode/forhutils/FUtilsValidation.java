@@ -2,11 +2,11 @@ package com.fourhcode.forhutils;
 
 import android.util.Log;
 import android.util.Patterns;
+import android.widget.EditText;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by Muhammad on 19/09/2016.
@@ -15,7 +15,9 @@ public class FUtilsValidation {
 
     public static boolean isEmail(String value) {
         return Patterns.EMAIL_ADDRESS.matcher(value).matches();
+
     }
+
 
     public static boolean isPhone(String value) {
         return Patterns.PHONE.matcher(value).matches();
@@ -34,7 +36,7 @@ public class FUtilsValidation {
     }
 
     public static boolean isArabic(String value) {
-        for (int i = 0; i < value.length();) {
+        for (int i = 0; i < value.length(); ) {
             int c = value.codePointAt(i);
             if (c >= 0x0600 && c <= 0x06E0)
                 return true;
@@ -57,6 +59,19 @@ public class FUtilsValidation {
         }
 
         return true;
+    }
+
+
+    public static boolean isEmpty(String text) {
+        return text.trim().isEmpty();
+    }
+
+    public static boolean isEmpty(EditText editText) {
+        return editText.getText().toString().trim().isEmpty();
+    }
+
+    public static boolean isLenthCorrect(String text, int min, int max) {
+        return text.length() >= min && text.length() <= max;
     }
 
 

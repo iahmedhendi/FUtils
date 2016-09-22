@@ -1,10 +1,10 @@
 package com.fourhcode.forhutils;
 
 import android.app.Activity;
-import android.util.Log;
+import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 /**
@@ -14,27 +14,36 @@ import android.widget.RelativeLayout;
 
 public class FUtilsProgress {
 
-
+    View progressLayout;
     private RelativeLayout parentLayout;
-    private static FUtilsProgress futils;
-    private Activity activity;
-    View recyclerView;
+    private static FUtilsProgress instance;
+    Context context;
 
-    public static FUtilsProgress getDefault() {
 
-        if (futils == null) {
+    public static FUtilsProgress config(Context context, RelativeLayout wrapper) {
+        instance = new FUtilsProgress(wrapper, context);
+        return instance;
+    }
 
-            futils = new FUtilsProgress();
+    public static FUtilsProgress config(Fragment fragment, RelativeLayout wrapper) {
+        instance = new FUtilsProgress(wrapper, fragment.getActivity());
+        return instance;
+    }
 
-        }
-        return futils;
+    public static FUtilsProgress config(Activity activity, RelativeLayout wrapper) {
+        instance = new FUtilsProgress(wrapper, activity);
+        return instance;
     }
 
 
-    public FUtilsProgress() {
-        parentLayout = Futils.getDefault().getParentLayout();
-        activity = Futils.getDefault().getActivity();
-        recyclerView = Futils.getDefault().getRecyclerView();
+    private static FUtilsProgress getDefault() {
+        return instance;
+    }
+
+
+    public FUtilsProgress(RelativeLayout parentLayout, Context context) {
+        this.parentLayout = parentLayout;
+        this.context = context;
     }
 
     public static void showProgress() {
@@ -42,7 +51,7 @@ public class FUtilsProgress {
     }
 
 
-    public static void showProgressT() {
+    public static void showProgressTransparent() {
         getDefault().showProgressTransparentM();
     }
 
@@ -52,41 +61,21 @@ public class FUtilsProgress {
     }
 
 
-
-
-
-    public void hideProgresss() {
+    private void hideProgresss() {
         checkConfing();
+         if (progressLayout != null) parentLayout.removeView(progressLayout);
 
-        if (activity.findViewById(R.id.futils_loading_lay) != null) {
-            activity.findViewById(R.id.futils_loading_lay).setVisibility(View.GONE);
-        } else {
-            Log.e("Futils", "no progress");
-        }
-
-        if (activity.findViewById(R.id.futils_transparent_loading_lay) != null) {
-            activity.findViewById(R.id.futils_transparent_loading_lay).setVisibility(View.GONE);
-        } else {
-            Log.e("Futils", "no progress");
-        }
-
-        if (recyclerView != null)
-            recyclerView.setVisibility(View.VISIBLE);
     }
 
 
-    public void showProgressM() {
+    private void showProgressM() {
         checkConfing();
 
-        if (activity.findViewById(R.id.futils_loading_lay) != null) {
-            activity.findViewById(R.id.futils_loading_lay).setVisibility(View.VISIBLE);
-        } else {
-            RelativeLayout view = (RelativeLayout) LayoutInflater.from(parentLayout.getContext()).inflate(R.layout.futils_loading_layout, null, false);
-            ViewGroup.LayoutParams params = parentLayout.getLayoutParams();
-            view.setLayoutParams(params);
-            parentLayout.addView(view);
-        }
-        if (recyclerView != null) recyclerView.setVisibility(View.GONE);
+        progressLayout =
+                LayoutInflater.from(parentLayout.getContext()).inflate(R.layout.futils_loading_layout, parentLayout, false);
+
+
+        parentLayout.addView(progressLayout);
 
 
     }
@@ -94,28 +83,21 @@ public class FUtilsProgress {
 
     private void checkConfing() {
         if (parentLayout == null) {
-            throw new FutilsException("Futils Didn't Configured by called config() method or activity root view not Relative layout");
+            throw new FutilsException("FutilsProgress Didn't Configured by called config() method ");
         }
     }
 
-    public void showProgressTransparentM() {
+    private void showProgressTransparentM() {
         checkConfing();
+         Context context = Futils.getDefault().getContext();
+        progressLayout =
+                LayoutInflater.from(parentLayout.getContext()).inflate(R.layout.futils_loading_transparent_layout, parentLayout, false);
+        parentLayout.addView(progressLayout);
 
-        if (activity.findViewById(R.id.futils_transparent_loading_lay) != null) {
-            activity.findViewById(R.id.futils_transparent_loading_lay).setVisibility(View.VISIBLE);
-        } else {
-            RelativeLayout view = (RelativeLayout) LayoutInflater.from(parentLayout.getContext()).inflate(R.layout.futils_loading_transparent_layout, null, false);
-            ViewGroup.LayoutParams params = parentLayout.getLayoutParams();
-            view.setLayoutParams(params);
-            parentLayout.addView(view);
-        }
 
-        if (recyclerView != null) recyclerView.setVisibility(View.GONE);
 
 
     }
-
-
 
 
 }
