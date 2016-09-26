@@ -70,6 +70,12 @@ public class FUtilsValidation {
         return editText.getText().toString().trim().isEmpty();
     }
 
+    public static boolean isEmpty(EditText editText,String errorIfEmpty) {
+        editText.setError(errorIfEmpty);
+        return editText.getText().toString().trim().isEmpty();
+    }
+
+
     public static boolean isLenthCorrect(String text, int min, int max) {
         return text.length() >= min && text.length() <= max;
     }
