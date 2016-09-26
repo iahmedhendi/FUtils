@@ -76,7 +76,7 @@ public class FUtilsValidation {
     }
 
 
-    public static boolean isLenthCorrect(String text, int min, int max) {
+    public static boolean isLengthCorrect(String text, int min, int max) {
         return text.length() >= min && text.length() <= max;
     }
 
