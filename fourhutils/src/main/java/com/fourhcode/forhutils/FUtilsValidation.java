@@ -70,14 +70,41 @@ public class FUtilsValidation {
         return editText.getText().toString().trim().isEmpty();
     }
 
-    public static boolean isEmpty(EditText editText,String errorIfEmpty) {
-        editText.setError(errorIfEmpty);
-        return editText.getText().toString().trim().isEmpty();
-    }
-
 
     public static boolean isLengthCorrect(String text, int min, int max) {
         return text.length() >= min && text.length() <= max;
+    }
+
+    public static boolean isEmpty(EditText editText, String error) {
+        if (editText.getText().toString().trim().isEmpty()) {
+            editText.setError(error);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean isValidEmail(EditText emailEditText, String error) {
+        if (android.util.Patterns.EMAIL_ADDRESS.matcher(emailEditText.getText().toString()).matches()) {
+            return true;
+        } else {
+            emailEditText.setError(error);
+            return false;
+        }
+
+    }
+
+    public static boolean isValidEmail(EditText emailEditText, String errorIfEmpry, String errorIfNotValid) {
+        if (android.util.Patterns.EMAIL_ADDRESS.matcher(emailEditText.getText().toString()).matches()) {
+            return true;
+        } else if (emailEditText.getText().toString().trim().isEmpty()) {
+            emailEditText.setError(errorIfEmpry);
+            return false;
+        } else {
+            emailEditText.setError(errorIfNotValid);
+            return false;
+        }
+
     }
 
 
