@@ -1,8 +1,11 @@
 package com.fourhcode.forhutils;
 
+import android.content.Context;
 import android.util.Log;
 import android.util.Patterns;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -84,6 +87,8 @@ public class FUtilsValidation {
         }
     }
 
+
+
     public static boolean isValidEmail(EditText emailEditText, String error) {
         if (android.util.Patterns.EMAIL_ADDRESS.matcher(emailEditText.getText().toString()).matches()) {
             return true;
@@ -105,6 +110,39 @@ public class FUtilsValidation {
             return false;
         }
 
+    }
+
+
+    public static boolean isPasswordEqual(EditText passwordEditText, EditText repeatedPasswordEditText, String error) {
+        String passowrd1 = passwordEditText.getText().toString();
+        String password2 = repeatedPasswordEditText.getText().toString();
+        if (passowrd1.equals(password2)) {
+            return true;
+        } else {
+            passwordEditText.setError(error);
+            repeatedPasswordEditText.setError(error);
+            return false;
+        }
+
+    }
+
+
+    public static boolean isSpinnerFirstItemSelected(Spinner spinner, String error, Context context) {
+        if (spinner.getSelectedItemPosition() == 0) {
+            Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public static void reset(EditText editText) {
+        editText.setError(null);
+    }
+
+    public static String value(EditText editText) {
+        return editText.getText().toString();
     }
 
 
