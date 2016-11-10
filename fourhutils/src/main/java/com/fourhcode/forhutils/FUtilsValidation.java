@@ -16,6 +16,11 @@ import java.util.Date;
  */
 public class FUtilsValidation {
 
+
+
+
+
+
     public static boolean isEmail(String value) {
         return Patterns.EMAIL_ADDRESS.matcher(value).matches();
 
@@ -88,7 +93,6 @@ public class FUtilsValidation {
     }
 
 
-
     public static boolean isValidEmail(EditText emailEditText, String error) {
         if (android.util.Patterns.EMAIL_ADDRESS.matcher(emailEditText.getText().toString()).matches()) {
             return true;
@@ -137,8 +141,13 @@ public class FUtilsValidation {
 
     }
 
+    public static void hideErorr(EditText editText) {
+        editText.setError(null);
+    }
+
     public static void reset(EditText editText) {
         editText.setError(null);
+        editText.setText("");
     }
 
     public static String value(EditText editText) {

@@ -1,6 +1,5 @@
 package com.hendiware.futils;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //FUtilsSession.loginUser(15, "M_H_K", "mohamedhelmy137@gmail.com");
+
 
 
         Log.e("Login Data : ", FUtilsSession.getUserID() + " : " + FUtilsSession.getUserName() + " : " + FUtilsSession.getUserEmail());
@@ -62,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }.start();
+
+
+        FUtilsInternet.isConnected();
 
     }
 }
