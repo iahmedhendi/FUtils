@@ -16,16 +16,10 @@ import java.util.Date;
  */
 public class FUtilsValidation {
 
-
-
-
-
-
     public static boolean isEmail(String value) {
         return Patterns.EMAIL_ADDRESS.matcher(value).matches();
 
     }
-
 
     public static boolean isPhone(String value) {
         return Patterns.PHONE.matcher(value).matches();
@@ -44,20 +38,17 @@ public class FUtilsValidation {
     }
 
     public static boolean isArabic(String value) {
-        for (int i = 0; i < value.length(); ) {
+        for (int i = 0; i < value.length() ; ) {
             int c = value.codePointAt(i);
-            if (c >= 0x0600 && c <= 0x06E0)
-                return true;
+            if (c >= 0x0600 && c <= 0x06E0) return true;
             i += Character.charCount(c);
         }
         return false;
     }
 
     public static boolean isDateValid(String dateToValidate, String dateFormat) {
-
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
         simpleDateFormat.setLenient(false);
-
         try {
             Date date = simpleDateFormat.parse(dateToValidate);
             Log.d("Valid Date", date.toString());
@@ -65,26 +56,23 @@ public class FUtilsValidation {
             e.printStackTrace();
             return false;
         }
-
         return true;
     }
-
 
     public static boolean isEmpty(String text) {
         return text.trim().isEmpty();
     }
 
     public static boolean isEmpty(EditText editText) {
-        return editText.getText().toString().trim().isEmpty();
+        return isEmpty(editText.getText().toString());
     }
-
 
     public static boolean isLengthCorrect(String text, int min, int max) {
         return text.length() >= min && text.length() <= max;
     }
 
     public static boolean isEmpty(EditText editText, String error) {
-        if (editText.getText().toString().trim().isEmpty()) {
+        if (isEmpty(editText)) {
             editText.setError(error);
             return true;
         } else {
@@ -92,9 +80,8 @@ public class FUtilsValidation {
         }
     }
 
-
     public static boolean isValidEmail(EditText emailEditText, String error) {
-        if (android.util.Patterns.EMAIL_ADDRESS.matcher(emailEditText.getText().toString()).matches()) {
+        if (isEmail(emailEditText.getText().toString())) {
             return true;
         } else {
             emailEditText.setError(error);
@@ -104,9 +91,10 @@ public class FUtilsValidation {
     }
 
     public static boolean isValidEmail(EditText emailEditText, String errorIfEmpry, String errorIfNotValid) {
-        if (android.util.Patterns.EMAIL_ADDRESS.matcher(emailEditText.getText().toString()).matches()) {
+        final String emailString = emailEditText.getText().toString();
+        if (isEmail(emailString)) {
             return true;
-        } else if (emailEditText.getText().toString().trim().isEmpty()) {
+        } else if (isEmpty(emailString)) {
             emailEditText.setError(errorIfEmpry);
             return false;
         } else {
@@ -115,7 +103,6 @@ public class FUtilsValidation {
         }
 
     }
-
 
     public static boolean isPasswordEqual(EditText passwordEditText, EditText repeatedPasswordEditText, String error) {
         String passowrd1 = passwordEditText.getText().toString();
@@ -129,7 +116,6 @@ public class FUtilsValidation {
         }
 
     }
-
 
     public static boolean isSpinnerFirstItemSelected(Spinner spinner, String error, Context context) {
         if (spinner.getSelectedItemPosition() == 0) {
@@ -153,6 +139,4 @@ public class FUtilsValidation {
     public static String value(EditText editText) {
         return editText.getText().toString();
     }
-
-
 }
